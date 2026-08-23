@@ -1,0 +1,6 @@
+rg_name             = "cmaz-9y371ftl-mod3-rg"
+storageaccount_name = "cmaz9y371ftlsa"
+vnet_name           = "cmaz-9y371ftl-mod3-vnet"
+subnet1_name        = "frontend"
+subnet2_name        = "backend"
+student_email       = "gevorg_hovhannisyan@epam.com"

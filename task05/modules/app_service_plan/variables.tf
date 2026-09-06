@@ -1,24 +1,29 @@
 variable "name" {
-  type = string
+  description = "App Service Plan name"
+  type        = string
 }
 
 variable "resource_group_name" {
-  type = string
+  description = "Name of the Resource Group containing the App Service Plan"
+  type        = string
 }
 
 variable "location" {
-  type = string
+  description = "Azure location of the App Service Plan"
+  type        = string
 }
 
 variable "sku_name" {
-  type = string
+  description = "SKU name of the App Service Plan"
+  type        = string
 }
 
 variable "worker_count" {
-  type = number
+  description = "Number of worker instances for the App Service Plan"
+  type        = number
 }
 
 variable "tags" {
-  type    = map(string)
-  default = {}
+  description = "Tags assigned to the App Service Plan"
+  type        = map(string)
 }

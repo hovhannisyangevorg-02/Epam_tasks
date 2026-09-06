@@ -1,37 +1,44 @@
 variable "name" {
-  type = string
+  description = "Windows Web App name"
+  type        = string
 }
 
 variable "resource_group_name" {
-  type = string
+  description = "Name of the Resource Group containing the Windows Web App"
+  type        = string
 }
 
 variable "location" {
-  type = string
+  description = "Azure location of the Windows Web App"
+  type        = string
 }
 
 variable "service_plan_id" {
-  type = string
+  description = "Resource ID of the App Service Plan used by the Windows Web App"
+  type        = string
 }
 
 variable "app_allow_ip_rule" {
-  type = string
+  description = "Name of the access restriction rule allowing the verification agent IP"
+  type        = string
 }
 
 variable "app_allow_tag_rule" {
-  type = string
+  description = "Name of the access restriction rule allowing the AzureTrafficManager service tag"
+  type        = string
 }
 
 variable "allowed_ip_address" {
-  type = string
+  description = "Verification agent IP address allowed to access the Windows Web App"
+  type        = string
 }
 
 variable "always_on" {
-  type    = bool
-  default = true
+  description = "Controls whether the Windows Web App Always On feature is enabled"
+  type        = bool
 }
 
 variable "tags" {
-  type    = map(string)
-  default = {}
+  description = "Tags assigned to the Windows Web App"
+  type        = map(string)
 }

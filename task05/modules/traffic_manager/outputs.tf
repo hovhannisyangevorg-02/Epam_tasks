@@ -1,7 +1,9 @@
 output "id" {
-  value = azurerm_traffic_manager_profile.this.id
+  description = "Resource ID of the Azure Traffic Manager profile."
+  value       = azurerm_traffic_manager_profile.this.id
 }
 
 output "fqdn" {
-  value = azurerm_traffic_manager_profile.this.fqdn
+  description = "Fully qualified domain name of the Azure Traffic Manager profile."
+  value       = azurerm_traffic_manager_profile.this.fqdn
 }

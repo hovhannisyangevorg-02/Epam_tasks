@@ -3,8 +3,6 @@ resource "azurerm_traffic_manager_profile" "this" {
   resource_group_name    = var.resource_group_name
   traffic_routing_method = var.traffic_routing_method
 
-  tags = var.tags
-
   dns_config {
     relative_name = var.name
     ttl           = 30
@@ -18,6 +16,8 @@ resource "azurerm_traffic_manager_profile" "this" {
     timeout_in_seconds           = 9
     tolerated_number_of_failures = 3
   }
+
+  tags = var.tags
 }
 
 resource "azurerm_traffic_manager_azure_endpoint" "this" {
@@ -30,6 +30,4 @@ resource "azurerm_traffic_manager_azure_endpoint" "this" {
   weight = var.traffic_routing_method == "Weighted" ? each.value.weight : null
 
   priority = var.traffic_routing_method == "Priority" ? each.value.priority : null
-
-  geo_mappings = var.traffic_routing_method == "Geographic" ? each.value.geo_mappings : null
 }

@@ -1,4 +1,4 @@
 output "traffic_manager_fqdn" {
-  description = "Azure Traffic Manager profile FQDN."
+  description = "Fully qualified domain name of the Azure Traffic Manager profile."
   value       = module.traffic_manager.fqdn
 }

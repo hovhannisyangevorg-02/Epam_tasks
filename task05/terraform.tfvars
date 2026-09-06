@@ -52,7 +52,5 @@ traffic_manager = {
 
 app_allow_ip_rule  = "allow-ip"
 app_allow_tag_rule = "allow-tm"
-
 allowed_ip_address = "18.153.146.156"
-
-student_email = "gevorg_hovhannisyan@epam.com"
+student_email      = "gevorg_hovhannisyan@epam.com"

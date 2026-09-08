@@ -1,6 +1,6 @@
 name_prefix = "cmaz-9y371ftl-mod6"
 
-location = "East US"
+location = "Central US"
 
 kv_rg_name = "cmaz-9y371ftl-mod6-kv-rg"
 kv_name    = "cmaz-9y371ftl-mod6-kv"

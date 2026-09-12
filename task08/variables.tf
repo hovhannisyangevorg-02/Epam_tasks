@@ -1,33 +1,40 @@
 variable "name_prefix" {
-  type    = string
-  default = "cmtr-9y371ftl-mod8"
+  description = "Common naming prefix used to generate Azure resource names."
+  type        = string
+  default     = "cmtr-9y371ftl-mod8"
 }
 
 variable "redis_unique_suffix" {
-  type    = string
-  default = "1789225950"
+  description = "Unique numeric suffix required for the Azure Redis Cache resource name."
+  type        = string
+  default     = "1789225950"
 }
 
 variable "location" {
-  type    = string
-  default = "West Europe"
+  description = "Azure region where all resources will be deployed."
+  type        = string
+  default     = "West Europe"
 }
 
 variable "creator" {
-  type    = string
-  default = "gevorg_hovhannisyan@epam.com"
+  description = "Creator value applied to the required Azure resources as a tag."
+  type        = string
+  default     = "gevorg_hovhannisyan@epam.com"
 }
 
 variable "git_repo_url" {
-  type = string
+  description = "HTTPS URL of the Git repository containing the task08 application source code."
+  type        = string
 }
 
 variable "git_branch" {
-  type    = string
-  default = "main"
+  description = "Git branch containing the application source code used by the Azure Container Registry task."
+  type        = string
+  default     = "main"
 }
 
 variable "git_pat" {
-  type      = string
-  sensitive = true
+  description = "Git Personal Access Token used by the Azure Container Registry task to access the source repository."
+  type        = string
+  sensitive   = true
 }

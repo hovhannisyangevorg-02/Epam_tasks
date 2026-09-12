@@ -37,4 +37,5 @@ provider "kubectl" {
   cluster_ca_certificate = base64decode(module.aks.cluster_ca_certificate)
 
   load_config_file = false
+  lazy_load        = true
 }

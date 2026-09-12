@@ -1,23 +1,29 @@
 variable "name" {
-  type = string
+  description = "Name of the Azure Key Vault."
+  type        = string
 }
 
 variable "location" {
-  type = string
+  description = "Azure region where the Key Vault will be deployed."
+  type        = string
 }
 
 variable "resource_group_name" {
-  type = string
+  description = "Name of the resource group containing the Key Vault."
+  type        = string
 }
 
 variable "tenant_id" {
-  type = string
+  description = "Azure Active Directory tenant ID used by the Key Vault."
+  type        = string
 }
 
 variable "current_user_object_id" {
-  type = string
+  description = "Object ID of the current Azure user receiving Key Vault secret permissions."
+  type        = string
 }
 
 variable "tags" {
-  type = map(string)
+  description = "Tags to apply to the Azure Key Vault."
+  type        = map(string)
 }

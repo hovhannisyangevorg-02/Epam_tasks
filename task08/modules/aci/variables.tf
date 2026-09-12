@@ -1,47 +1,58 @@
 variable "name" {
-  type = string
+  description = "Name of the Azure Container Instance container group."
+  type        = string
 }
 
 variable "location" {
-  type = string
+  description = "Azure region where the Azure Container Instance will be deployed."
+  type        = string
 }
 
 variable "resource_group_name" {
-  type = string
+  description = "Name of the resource group containing the Azure Container Instance."
+  type        = string
 }
 
 variable "tags" {
-  type = map(string)
+  description = "Tags to apply to the Azure Container Instance."
+  type        = map(string)
 }
 
 variable "image" {
-  type = string
+  description = "Fully qualified Docker image reference deployed to Azure Container Instance."
+  type        = string
 }
 
 variable "acr_server" {
-  type = string
+  description = "Azure Container Registry login server used by Azure Container Instance."
+  type        = string
 }
 
 variable "acr_username" {
-  type      = string
-  sensitive = true
+  description = "Azure Container Registry username used to pull the application image."
+  type        = string
+  sensitive   = true
 }
 
 variable "acr_password" {
-  type      = string
-  sensitive = true
+  description = "Azure Container Registry password used to pull the application image."
+  type        = string
+  sensitive   = true
 }
 
 variable "redis_hostname" {
-  type      = string
-  sensitive = true
+  description = "Redis hostname supplied to the application as a secure environment variable."
+  type        = string
+  sensitive   = true
 }
 
 variable "redis_primary_key" {
-  type      = string
-  sensitive = true
+  description = "Redis primary access key supplied to the application as a secure environment variable."
+  type        = string
+  sensitive   = true
 }
 
 variable "dns_name_label" {
-  type = string
+  description = "Public DNS name label assigned to the Azure Container Instance."
+  type        = string
 }

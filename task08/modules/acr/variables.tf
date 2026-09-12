@@ -1,36 +1,45 @@
 variable "name" {
-  type = string
+  description = "Name of the Azure Container Registry."
+  type        = string
 }
 
 variable "location" {
-  type = string
+  description = "Azure region where the Container Registry will be deployed."
+  type        = string
 }
 
 variable "resource_group_name" {
-  type = string
+  description = "Name of the resource group containing the Container Registry."
+  type        = string
 }
 
 variable "tags" {
-  type = map(string)
+  description = "Tags to apply to the Azure Container Registry."
+  type        = map(string)
 }
 
 variable "app_image_name" {
-  type = string
+  description = "Name of the Docker image built by the Azure Container Registry task."
+  type        = string
 }
 
 variable "image_tag" {
-  type = string
+  description = "Docker image tag produced by the Azure Container Registry task."
+  type        = string
 }
 
 variable "git_repo_url" {
-  type = string
+  description = "HTTPS URL of the Git repository containing the application Dockerfile."
+  type        = string
 }
 
 variable "git_branch" {
-  type = string
+  description = "Git branch used as the source for the Azure Container Registry build task."
+  type        = string
 }
 
 variable "git_pat" {
-  type      = string
-  sensitive = true
+  description = "Git Personal Access Token used by the Azure Container Registry task to access the source repository."
+  type        = string
+  sensitive   = true
 }

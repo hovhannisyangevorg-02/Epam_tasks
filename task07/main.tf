@@ -1,6 +1,6 @@
 import {
   to = azurerm_resource_group.imported
-  id = var.resource_group_id
+  id = "/subscriptions/b35329c5-3ec2-46c7-9e0f-c1226f294439/resourceGroups/cmtr-9y371ftl-mod7-rg"
 }
 
 resource "azurerm_resource_group" "imported" {
@@ -10,7 +10,7 @@ resource "azurerm_resource_group" "imported" {
 
 import {
   to = azurerm_storage_account.imported
-  id = var.storage_account_id
+  id = "/subscriptions/b35329c5-3ec2-46c7-9e0f-c1226f294439/resourceGroups/cmtr-9y371ftl-mod7-rg/providers/Microsoft.Storage/storageAccounts/cmtr9y371ftlmod7sa"
 }
 
 resource "azurerm_storage_account" "imported" {
@@ -23,6 +23,10 @@ resource "azurerm_storage_account" "imported" {
 
   allow_nested_items_to_be_public  = false
   cross_tenant_replication_enabled = false
+
+  lifecycle {
+    prevent_destroy = true
+  }
 }
 
 module "cdn" {

@@ -1,3 +1,14 @@
+resource "azurerm_container_registry" "this" {
+  name                = var.name
+  resource_group_name = var.resource_group_name
+  location            = var.location
+
+  sku           = "Basic"
+  admin_enabled = true
+
+  tags = var.tags
+}
+
 resource "azurerm_container_registry_task" "build" {
   name                  = "build-${var.app_image_name}"
   container_registry_id = azurerm_container_registry.this.id

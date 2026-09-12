@@ -5,5 +5,5 @@ location = "West Europe"
 
 creator = "gevorg_hovhannisyan@epam.com"
 
-git_repo_url = "https://github.com/YOUR_USERNAME/YOUR_REPOSITORY"
+git_repo_url = "https://github.com/hovhannisyangevorg-02/Epam_tasks.git"
 git_branch   = "main"

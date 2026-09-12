@@ -23,10 +23,6 @@ resource "azurerm_storage_account" "imported" {
 
   allow_nested_items_to_be_public  = false
   cross_tenant_replication_enabled = false
-
-  lifecycle {
-    prevent_destroy = true
-  }
 }
 
 module "cdn" {

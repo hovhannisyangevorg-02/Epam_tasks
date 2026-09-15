@@ -10,8 +10,7 @@ resource "azurerm_redis_cache" "this" {
   non_ssl_port_enabled = false
   minimum_tls_version  = "1.2"
 
-  redis_configuration {
-  }
+  redis_configuration {}
 
   tags = var.tags
 }

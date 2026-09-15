@@ -1,5 +1,5 @@
 name_prefix         = "cmtr-9y371ftl-mod8"
-redis_unique_suffix = "1789225950"
+redis_unique_suffix = "1789492375"
 
 location = "West Europe"
 

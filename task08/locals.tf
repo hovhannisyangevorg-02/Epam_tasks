@@ -5,7 +5,7 @@ locals {
   aks_name      = "${var.name_prefix}-aks"
   keyvault_name = "${var.name_prefix}-kv"
 
-  redis_name = "${var.name_prefix}-${var.redis_unique_suffix}-redis"
+  redis_name = "${replace(var.name_prefix, "-mod8", "")}-${var.redis_unique_suffix}-mod8-redis"
 
   app_image_name = "${var.name_prefix}-app"
   image_tag      = "latest"

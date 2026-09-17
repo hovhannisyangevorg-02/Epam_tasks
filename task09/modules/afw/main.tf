@@ -83,16 +83,6 @@ resource "azurerm_firewall_application_rule_collection" "aks" {
       name             = rule.value.name
       source_addresses = rule.value.source_addresses
       fqdn_tags        = rule.value.fqdn_tags
-
-      protocol {
-        port = "80"
-        type = "Http"
-      }
-
-      protocol {
-        port = "443"
-        type = "Https"
-      }
     }
   }
 }
@@ -142,7 +132,7 @@ resource "azurerm_firewall_nat_rule_collection" "nginx" {
     ]
 
     protocols = [
-      "Any"
+      "TCP"
     ]
 
     translated_address = var.aks_loadbalancer_ip

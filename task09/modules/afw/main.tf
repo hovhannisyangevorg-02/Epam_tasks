@@ -49,47 +49,23 @@ resource "azurerm_route_table" "aks" {
   location            = var.location
   resource_group_name = var.resource_group_name
 
-  disable_bgp_route_propagation = false
-}
+  bgp_route_propagation_enabled = true
 
-locals {
-  routes = {
-    default_to_firewall = {
-      name                   = "udr-${var.unique_id}-default"
-      address_prefix         = "0.0.0.0/0"
-      next_hop_type          = "VirtualAppliance"
-      next_hop_in_ip_address = azurerm_firewall.this.ip_configuration[0].private_ip_address
-    }
+  dynamic "route" {
+    for_each = local.routes
 
-    firewall_public_ip = {
-      name                   = "udr-${var.unique_id}-afw-pip"
-      address_prefix         = "${azurerm_public_ip.firewall.ip_address}/32"
-      next_hop_type          = "Internet"
-      next_hop_in_ip_address = null
+    content {
+      name                   = route.value.name
+      address_prefix         = route.value.address_prefix
+      next_hop_type          = route.value.next_hop_type
+      next_hop_in_ip_address = route.value.next_hop_in_ip_address
     }
   }
-}
-
-resource "azurerm_route" "aks" {
-  for_each = local.routes
-
-  name                = each.value.name
-  resource_group_name = var.resource_group_name
-  route_table_name    = azurerm_route_table.aks.name
-
-  address_prefix = each.value.address_prefix
-  next_hop_type  = each.value.next_hop_type
-
-  next_hop_in_ip_address = each.value.next_hop_in_ip_address
 }
 
 resource "azurerm_subnet_route_table_association" "aks" {
   subnet_id      = data.azurerm_subnet.aks.id
   route_table_id = azurerm_route_table.aks.id
-
-  depends_on = [
-    azurerm_route.aks
-  ]
 }
 
 resource "azurerm_firewall_application_rule_collection" "aks" {
@@ -109,13 +85,13 @@ resource "azurerm_firewall_application_rule_collection" "aks" {
       fqdn_tags        = rule.value.fqdn_tags
 
       protocol {
+        port = "80"
         type = "Http"
-        port = 80
       }
 
       protocol {
+        port = "443"
         type = "Https"
-        port = 443
       }
     }
   }
@@ -153,11 +129,9 @@ resource "azurerm_firewall_nat_rule_collection" "nginx" {
   action   = "Dnat"
 
   rule {
-    name = "dnat-${var.unique_id}-nginx"
+    name = "${var.name_prefix}-nginx-dnat"
 
-    source_addresses = [
-      "*"
-    ]
+    source_addresses = ["*"]
 
     destination_addresses = [
       azurerm_public_ip.firewall.ip_address
@@ -168,7 +142,7 @@ resource "azurerm_firewall_nat_rule_collection" "nginx" {
     ]
 
     protocols = [
-      "TCP"
+      "Any"
     ]
 
     translated_address = var.aks_loadbalancer_ip

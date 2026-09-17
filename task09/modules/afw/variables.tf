@@ -1,10 +1,10 @@
-variable "unique_id" {
-  description = "Unique identifier used for naming Task 09 resources."
+variable "name_prefix" {
+  description = "Common naming prefix used for Task 09 resources."
   type        = string
 }
 
 variable "location" {
-  description = "Azure region where Azure Firewall resources are deployed."
+  description = "Azure region for Azure Firewall resources."
   type        = string
 }
 
@@ -39,17 +39,17 @@ variable "aks_cluster_name" {
 }
 
 variable "aks_loadbalancer_ip" {
-  description = "Public frontend IP address of the existing AKS LoadBalancer service."
+  description = "Existing public IP address assigned to the AKS LoadBalancer."
   type        = string
 }
 
 variable "firewall_public_ip_name" {
-  description = "Name of the Standard Public IP assigned to Azure Firewall."
+  description = "Name of the Azure Firewall Public IP resource."
   type        = string
 }
 
 variable "firewall_name" {
-  description = "Name of the Azure Firewall resource."
+  description = "Name of the Azure Firewall."
   type        = string
 }
 
@@ -59,7 +59,7 @@ variable "firewall_ip_configuration_name" {
 }
 
 variable "route_table_name" {
-  description = "Name of the route table associated with the AKS subnet."
+  description = "Name of the Route Table associated with the AKS subnet."
   type        = string
 }
 

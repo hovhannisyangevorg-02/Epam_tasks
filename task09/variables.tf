@@ -1,10 +1,10 @@
-variable "unique_id" {
-  description = "Unique identifier used as the naming standard for resources created by Task 09."
+variable "name_prefix" {
+  description = "Naming prefix used for all resources created by Task 09."
   type        = string
 }
 
 variable "location" {
-  description = "Azure region where the existing infrastructure and Azure Firewall resources are located."
+  description = "Azure region where Firewall resources will be created."
   type        = string
 }
 
@@ -19,17 +19,17 @@ variable "vnet_name" {
 }
 
 variable "vnet_address_space" {
-  description = "Address space of the existing Azure Virtual Network in CIDR notation."
+  description = "CIDR address space of the existing Azure Virtual Network."
   type        = string
 }
 
 variable "aks_subnet_name" {
-  description = "Name of the existing subnet used by the AKS cluster."
+  description = "Name of the existing AKS subnet."
   type        = string
 }
 
 variable "aks_subnet_address_space" {
-  description = "Address space of the existing AKS subnet in CIDR notation."
+  description = "CIDR address space of the existing AKS subnet."
   type        = string
 }
 
@@ -39,11 +39,11 @@ variable "aks_cluster_name" {
 }
 
 variable "aks_loadbalancer_ip" {
-  description = "Public IP address of the existing AKS LoadBalancer service."
+  description = "Public IP address of the existing AKS LoadBalancer."
   type        = string
 }
 
 variable "firewall_public_ip_name" {
-  description = "Required name of the Azure Firewall Public IP resource."
+  description = "Name of the Public IP assigned to Azure Firewall."
   type        = string
 }

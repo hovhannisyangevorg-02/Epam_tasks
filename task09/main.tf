@@ -1,7 +1,7 @@
 module "afw" {
   source = "./modules/afw"
 
-  unique_id = var.unique_id
+  name_prefix = var.name_prefix
 
   location            = var.location
   resource_group_name = var.resource_group_name
@@ -18,10 +18,12 @@ module "afw" {
 
   firewall_public_ip_name = var.firewall_public_ip_name
 
-  firewall_name                     = local.afw_name
-  firewall_ip_configuration_name    = local.firewall_ip_configuration_name
-  route_table_name                  = local.rt_name
-  application_rule_collection_name  = local.application_rule_collection_name
-  network_rule_collection_name      = local.network_rule_collection_name
-  nat_rule_collection_name          = local.nat_rule_collection_name
+  firewall_name                  = local.firewall_name
+  firewall_ip_configuration_name = local.firewall_ip_configuration_name
+
+  route_table_name = local.route_table_name
+
+  application_rule_collection_name = local.application_rule_collection_name
+  network_rule_collection_name     = local.network_rule_collection_name
+  nat_rule_collection_name         = local.nat_rule_collection_name
 }

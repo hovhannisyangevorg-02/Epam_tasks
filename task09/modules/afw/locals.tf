@@ -1,29 +1,18 @@
 locals {
   firewall_subnet_name = "AzureFirewallSubnet"
 
-  # Azure Firewall needs at least a /26 subnet.
-  # Place it at the end of the existing VNet to reduce the chance
-  # of overlapping the existing AKS subnet.
-  vnet_prefix_length = tonumber(split("/", var.vnet_address_space)[1])
-
-  firewall_subnet_newbits = 26 - local.vnet_prefix_length
-
-  firewall_subnet_netnum = pow(
-    2,
-    local.firewall_subnet_newbits
-  ) - 1
-
+  # 10.0.0.0/16 -> 10.0.1.0/26
   firewall_subnet_address_space = cidrsubnet(
     var.vnet_address_space,
-    local.firewall_subnet_newbits,
-    local.firewall_subnet_netnum
+    10,
+    4
   )
 
   azure_region_service_tag = "AzureCloud.${replace(lower(var.location), " ", "")}"
 
   application_rules = {
     aks_required = {
-      name             = "allow-aks-required"
+      name             = "${var.name_prefix}-aks-app-rule"
       source_addresses = [var.aks_subnet_address_space]
       fqdn_tags        = ["AzureKubernetesService"]
     }
@@ -31,7 +20,7 @@ locals {
 
   network_rules = {
     api_tcp = {
-      name                  = "allow-api-tcp"
+      name                  = "${var.name_prefix}-api-tcp"
       protocols             = ["TCP"]
       source_addresses      = [var.aks_subnet_address_space]
       destination_addresses = [local.azure_region_service_tag]
@@ -40,7 +29,7 @@ locals {
     }
 
     api_udp = {
-      name                  = "allow-api-udp"
+      name                  = "${var.name_prefix}-api-udp"
       protocols             = ["UDP"]
       source_addresses      = [var.aks_subnet_address_space]
       destination_addresses = [local.azure_region_service_tag]
@@ -49,7 +38,7 @@ locals {
     }
 
     ntp = {
-      name                  = "allow-ntp"
+      name                  = "${var.name_prefix}-ntp"
       protocols             = ["UDP"]
       source_addresses      = [var.aks_subnet_address_space]
       destination_addresses = []
@@ -58,28 +47,44 @@ locals {
     }
 
     ghcr = {
-      name                  = "allow-ghcr"
+      name                  = "${var.name_prefix}-ghcr"
       protocols             = ["TCP"]
       source_addresses      = [var.aks_subnet_address_space]
       destination_addresses = []
       destination_fqdns = [
         "ghcr.io",
-        "pkg-containers.githubusercontent.com",
+        "pkg-containers.githubusercontent.com"
       ]
       destination_ports = ["443"]
     }
 
     docker = {
-      name                  = "allow-docker"
+      name                  = "${var.name_prefix}-docker"
       protocols             = ["TCP"]
       source_addresses      = [var.aks_subnet_address_space]
       destination_addresses = []
       destination_fqdns = [
         "docker.io",
         "registry-1.docker.io",
-        "production.cloudflare.docker.com",
+        "production.cloudflare.docker.com"
       ]
       destination_ports = ["443"]
+    }
+  }
+
+  routes = {
+    default = {
+      name                   = "${var.name_prefix}-default-route"
+      address_prefix         = "0.0.0.0/0"
+      next_hop_type          = "VirtualAppliance"
+      next_hop_in_ip_address = azurerm_firewall.this.ip_configuration[0].private_ip_address
+    }
+
+    firewall_public_ip = {
+      name                   = "${var.name_prefix}-afw-pip-route"
+      address_prefix         = "${azurerm_public_ip.firewall.ip_address}/32"
+      next_hop_type          = "Internet"
+      next_hop_in_ip_address = null
     }
   }
 }

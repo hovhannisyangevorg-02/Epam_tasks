@@ -12,6 +12,6 @@ aks_subnet_address_space = "10.0.0.0/24"
 
 aks_cluster_name = "cmtr-9y371ftl-mod9-aks"
 
-aks_loadbalancer_ip = "52.228.219.126"
+aks_loadbalancer_ip = "172.169.219.166"
 
 firewall_public_ip_name = "cmtr-9y371ftl-mod9-pip"

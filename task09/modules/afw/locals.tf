@@ -1,7 +1,9 @@
 locals {
   firewall_subnet_name = "AzureFirewallSubnet"
 
-  # 10.0.0.0/16 -> 10.0.1.0/26
+  # Existing VNet: 10.0.0.0/16
+  # Existing AKS subnet: 10.0.0.0/24
+  # Result for Firewall subnet: 10.0.1.0/26
   firewall_subnet_address_space = cidrsubnet(
     var.vnet_address_space,
     10,
@@ -9,6 +11,10 @@ locals {
   )
 
   azure_region_service_tag = "AzureCloud.${replace(lower(var.location), " ", "")}"
+
+  # NSG rule that allows traffic coming from Azure Firewall
+  # to the existing AKS LoadBalancer.
+  nsg_rule_name = "${var.name_prefix}-nsgsr"
 
   application_rules = {
     aks_required = {
